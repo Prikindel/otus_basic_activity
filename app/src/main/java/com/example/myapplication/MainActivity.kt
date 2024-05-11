@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,9 @@ import android.view.View.OnClickListener
 import android.widget.Button
 
 const val TAG = "TAG"
+const val KEY1 = "key1"
+const val KEY2 = "key2"
+const val KEY3 = "key3"
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,47 +22,40 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.i(TAG, "call onCreate")
         button = findViewById(R.id.button)
         button?.setOnClickListener {
-            val intent = Intent(this, SecondActivity::class.java)
+            val intent = openSecondIntent()
             startActivity(intent)
         }
-//        finish()
     }
 
-    override fun onRestart() {
-        super.onRestart()
-        Log.i(TAG, "call onRestart")
+    fun openSecondIntent() = Intent(this, SecondActivity::class.java).apply {
+        putExtra(KEY1, "Hello")
+        putExtra(KEY2, 123)
+        putExtra(KEY3, People("Maksim", 18))
     }
 
-    override fun onStart() {
-        super.onStart()
-        Log.i(TAG, "call onStart")
+    fun openBrowser() = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("https://otus.ru")
+    )
+
+    fun openTel(): Intent {
+        val intent = Intent(
+            Intent.ACTION_DIAL,
+            Uri.parse("qr:89991234567")
+        )
+        return intent
     }
 
-    override fun onResume() {
-        super.onResume()
-        Log.i(TAG, "call onResume")
-    }
+    fun openMail() = Intent(
+        Intent.ACTION_SENDTO,
+        Uri.parse("mailto:android@otus.ru")
+    )
 
-    override fun onPause() {
-        super.onPause()
-        Log.i(TAG, "call onPause")
-    }
+    fun openMap() = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("geo:0,0?q=bar")
+    ).setPackage("com.google.android.apps.maps")
 
-    override fun onStop() {
-        super.onStop()
-        Log.i(TAG, "call onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.i(TAG, "call onDestroy")
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        Log.i(TAG, "call onNewIntent")
-    }
 }

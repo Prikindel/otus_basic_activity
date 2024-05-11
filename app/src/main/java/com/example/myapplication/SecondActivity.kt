@@ -1,10 +1,13 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 
 class SecondActivity : AppCompatActivity() {
 
@@ -14,6 +17,19 @@ class SecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
         Log.i(TAG, "call onCreate second")
+
+        val key1 = intent.extras?.getString(KEY1, "Default") ?: "Def2"
+        val key2 = intent.extras?.getString(KEY2, "def3")
+        val people = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.extras?.getParcelable(KEY3, People::class.java)
+        } else {
+            intent.extras?.getParcelable<People>(KEY3)
+        }
+
+        findViewById<TextView>(R.id.text).setText(
+            "${people?.name} - ${people?.age}"
+        )
+
         button = findViewById(R.id.button2)
         button?.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
