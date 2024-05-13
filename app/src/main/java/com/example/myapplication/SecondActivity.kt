@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -18,8 +19,8 @@ class SecondActivity : AppCompatActivity() {
         setContentView(R.layout.activity_second)
         Log.i(TAG, "call onCreate second")
 
-        val key1 = intent.extras?.getString(KEY1, "Default") ?: "Def2"
-        val key2 = intent.extras?.getString(KEY2, "def3")
+//        val key1 = intent.extras?.getString(KEY1, "Default") ?: "Def2"
+//        val key2 = intent.extras?.getString(KEY2, "def3")
         val people = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getParcelable(KEY3, People::class.java)
         } else {
@@ -35,7 +36,20 @@ class SecondActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
+        findViewById<Button>(R.id.back).setOnClickListener {
+            val result = findViewById<EditText>(R.id.result_info).text.toString()
+
+            val intent = Intent().putExtra(RESULT_KEY, result)
+            setResult(RESULT_OK, intent)
+            finish()
+        }
 //        finish()
+    }
+
+    override fun onBackPressed() {
+        setResult(RESULT_CANCELED)
+        super.onBackPressed()
     }
 
     override fun onRestart() {
