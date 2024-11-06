@@ -24,6 +24,28 @@
             android:name=".SecondActivity"
             android:exported="true" >
 
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="tel" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="otusqr" />
+            </intent-filter>
+
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+                <data
+                    android:host="otus.ru"
+                    android:pathPrefix="/app"
+                    android:scheme="https" />
+            </intent-filter>
+
         </activity>
 
 
