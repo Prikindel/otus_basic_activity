@@ -9,7 +9,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="This is a Main Activity"
+        android:textSize="21sp"
+        android:textStyle="bold"
+        android:textColor="#8C1313"
         android:layout_gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +23,8 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open Link"
+        android:text="Open next screen"
+        android:textSize="16sp"
         android:layout_marginBottom="12dp"
         android:layout_gravity="center_horizontal|bottom"/>
 
